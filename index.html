@@ -1,150 +1,47 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <title>Rock Paper Scissors</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
-    <link rel="stylesheet" href="rps.css">
-</head>
-<body>
-    <h1>ROCK PAPER SCISSORS</h1>
-    <div class="score"></div>
-    <p>Choose One</p>
-    <div class="choices">
-
-        <button class="choice" onclick="play('rock')" aria-label="Rock">
-            <i class="fa-solid fa-hand-back-fist"></i>                              <!--Shagun Bhardwaj-->
-        </button>
-
-        <button class="choice" onclick="play('paper')" aria-label="Paper">
-            <i class="fa-solid fa-hand"></i>
-        </button>
-
-        <button class="choice" onclick="play('scissors')" aria-label="Scissors">
-            <i class="fa-solid fa-hand-scissors"></i>
-        </button>
-    </div>
-
-    <div class="result">
-        <div class="vs">
-            <i class="fa-regular fa-circle-question"></i>
-            VS
-            <i class="fa-regular fa-circle-question"></i>
+    <head>
+        <title>main</title>
+        <style>
+            body{
+                background-color: #0e0e1f;
+                align-items: center;
+                color: white;                      /*Shagun Bhardwaj*/
+                justify-content: center;
+                display: flex;
+                text-align: center;
+            }
+            div{
+                justify-content: center;
+                text-align: center;
+                margin:150px ;
+            }
+            button:hover{
+                border : 4px rgb(255, 196, 0) solid; 
+            }
+            button{
+                  transition: transform 0.2s, filter 0.2s;
+                 filter: drop-shadow(0 0 7.5px rgb(255, 196, 0)); 
+                justify-content: center;
+                font-size: 25px;
+                text-align: center;
+                border-radius: 4%;
+                color:black;
+                font-weight: bolder;
+                border: 2.2px rgb(255, 196, 0) solid;
+                padding: 20px 25px;
+                background-color: rgb(255, 255, 122);
+                
+             } 
+        </style>
+    </head>
+    <body>
+        <div>
+            <h1 style="text-align: center; font-family: system-ui, -apple-system,
+             BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', 
+             sans-serif;"> Excited !! <br> To play Rock Paper Scissors</h1>
+                <a href="rps.html">
+                <button> Play </button> </a>
         </div>
-        <div class="msg">Make your MOVE!!!</div>
-    </div>
-
-    <button class="js-button" onclick="resetScore()">Reset</button>
-
-    <button class="js-button" onclick="showTotalMatches()">
-        Total Matches
-    </button>
-
-    <div class="total"></div>
-
-    <script>
-        let score = JSON.parse(localStorage.getItem('rps-score')) || {
-            wins: 0,
-            losses: 0,
-            ties: 0
-        };
-
-        updateScoreDisplay();
-
-        function play(playerMove) {
-            const computerMove = pickComputerMove();
-            let result;
-
-            if (playerMove === computerMove) {
-                result = "It's a Tie!";
-                score.ties++;
-            } else if (
-                (playerMove === 'rock' && computerMove === 'scissors') ||
-                (playerMove === 'paper' && computerMove === 'rock') ||
-                (playerMove === 'scissors' && computerMove === 'paper')
-            ) {
-                result = 'You Win!';
-                score.wins++;
-            } else {
-                result = 'You Lose!';
-                score.losses++;
-            }
-
-            localStorage.setItem('rps-score', JSON.stringify(score));
-
-            updateScoreDisplay();
-            updateResultDisplay(playerMove, computerMove, result);
-        }
-
-        function pickComputerMove() {
-            const randomNumber = Math.random();
-
-            if (randomNumber < 1 / 3) {
-                return 'rock';
-            } else if (randomNumber < 2 / 3) {
-                return 'paper';
-            } else {
-                return 'scissors';
-            }
-        }
-
-        function getIconClass(move) {
-            if (move === 'rock') return 'fa-solid fa-hand-back-fist';
-            if (move === 'paper') return 'fa-solid fa-hand';
-            if (move === 'scissors') return 'fa-solid fa-hand-scissors';
-        }
-
-        function updateScoreDisplay() {
-            document.querySelector('.score').textContent =
-                `Wins: ${score.wins} | Losses: ${score.losses} | Ties: ${score.ties}`;
-        }
-
-        function updateResultDisplay(playerMove, computerMove, resultText) {
-            document.querySelector('.vs').innerHTML = `
-                <i class="${getIconClass(playerMove)}"></i>
-                V/S
-                <i class="${getIconClass(computerMove)}"></i>
-            `;
-
-            document.querySelector('.msg').textContent = resultText;
-        }
-        
-         function resetScore() {
-
-            if (confirm('Are you sure you want to reset the score?')) {
-
-                score = {
-                    wins: 0,
-                    losses: 0,
-                    ties: 0
-                };
-
-                localStorage.setItem('rps-score', JSON.stringify(score));
-
-                 updateScoreDisplay();
-
-                    document.querySelector('.vs').innerHTML = `
-                        <i class="fa-regular fa-circle-question"></i>
-                        vs
-                        <i class="fa-regular fa-circle-question"></i>
-                    `;
-
-                    document.querySelector('.msg').textContent = 'Make your MOVE!!!';
-                    document.querySelector('.total').textContent = '';
-
-                    alert('Score has been reset successfully!');
-
-                } else {
-                    alert('Reset cancelled. Your score remains unchanged.');
-                }
-            }
-
-
-        function showTotalMatches() {
-            const total = score.wins + score.losses + score.ties;
-
-            document.querySelector('.total').textContent =
-                `Total Matches Played: ${total}`;
-        }
-    </script>
-</body>
+    </body>
 </html>
